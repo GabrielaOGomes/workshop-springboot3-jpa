@@ -8,6 +8,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -23,8 +26,13 @@ public class Product implements Serializable {
 	private Double price;
 	private String imgUrl;
 
-	//@ManyToMany
-	//@JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
+	// Set: coleção que não aceita repetição
+	// HashSet: implementação de Set
+	// Associação muitos para muitos
+	// @JoinTable: cria uma tabela intermediária para fazer a associação
+	// joinColumns: nome da chave estrangeira que referencia a entidade atual (Product)
+	@ManyToMany
+	@JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
 	private Set<Category> categories = new HashSet<>();
 	
 	public Product() {
