@@ -1,8 +1,10 @@
 package com.educandoweb.couse.config;
 
+import com.educandoweb.couse.entities.Category;
 import com.educandoweb.couse.entities.Order;
 import com.educandoweb.couse.entities.User;
 import com.educandoweb.couse.entities.enums.OrderStatus;
+import com.educandoweb.couse.repositories.CategoryRepository;
 import com.educandoweb.couse.repositories.OrderRepository;
 import com.educandoweb.couse.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +27,17 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private OrderRepository orderRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     @Override
     public void run(String... args) throws Exception {
+
+        Category cat1 = new Category(null, "Electronics");
+        Category cat2 = new Category(null, "Books");
+        Category cat3 = new Category(null, "Computers");
+
+        categoryRepository.saveAll(Arrays.asList(cat1,cat2,cat3));
 
         //id null pq será gerado pelo banco de dados
         User u1 = new User(null, "Maria Brown", "maria@gmail.com", "988888888", "123456");
